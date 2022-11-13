@@ -1,31 +1,43 @@
 ## 动画
 
-### choose
+### 动画 1：选餐
 
-手势左右切换。
+Swipe 手势左右切换。
 
 #### 一段：手势左右水平移动
 
-transform: translateX(100)
-Easing.exp
-onPress?
+transform: translateX(100) 和 absolute 定位改变 left 值。
+
+动效：Easing.exp
+
+PanResponder => onSwipe
 
 #### 二段：进入时向上，离开时向下移动
 
 transform: translateY(100)
 
-#### 三段：三个星星向指定坐标移动或者 transform 百分比？
+#### 三段：三个星星向指定坐标移动或者 transform 百分比
 
-transform: translateX、translateY
+transform: translateX(100) 和 absolute 定位改变 left 值。
 
 #### 四段：文字向下消失 fadeOut
 
-opacity: 0 => 1 => 0
-transform: translateY(-10%) => translateY(0) => translateY(10%)
+- opacity: 0 => 1 => 0
+- transform: translateY(-10%) => translateY(0) => translateY(10%)
 
-### add-to-plate
+### 动画 2：点餐
 
 点击加号进入托盘。
+
+```jsx
+<TouchableWithoutFeedback
+  onPress={() => {
+    addToPlate(i);
+  }}
+>
+  <View>Add Button</View>
+</TouchableWithoutFeedback>
+```
 
 #### 一段：放大、往目标点移动
 
@@ -35,13 +47,13 @@ transform: scaleX, scaleY, translateX、translateY
 
 transform: translateX
 
-### 总价
+### 动画 3：结账
 
-先消失再显示。
+总金额先消失再显示。
 
 opacity: 1 => 0 ==> 1
 
-## 动画组合
+## 动画调度函数
 
 动画也可以使用合成函数以复杂的方式组合：
 
