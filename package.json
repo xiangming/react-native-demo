@@ -1,6 +1,7 @@
 {
   "name": "animated-ts",
   "version": "1.0.0",
+  "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -9,7 +10,9 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/webpack-config": "^0.17.2",
     "expo": "~47.0.3",
+    "expo-linear-gradient": "~12.0.1",
     "expo-status-bar": "~1.4.2",
     "react": "18.1.0",
     "react-dom": "18.1.0",
@@ -21,6 +24,5 @@
     "@types/react": "~18.0.14",
     "@types/react-native": "~0.70.6",
     "typescript": "^4.6.3"
-  },
-  "private": true
+  }
 }
