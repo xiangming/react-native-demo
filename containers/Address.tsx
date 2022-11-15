@@ -12,9 +12,7 @@ export const Address = (props: AddressProps) => {
   return (
     <View style={styles.container}>
       <Image source={mapImage} style={{ width: 25, height: 34 }} />
-      <Text>
-        Dongcheng District Metro Cultural Building
-      </Text>
+      <Text>Dongcheng District Metro Cultural Building</Text>
       <Image source={callImage} style={{ width: 33, height: 33 }} />
     </View>
   );

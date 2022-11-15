@@ -1,3 +1,4 @@
+export * from './AddButton';
 export * from './Address';
 export * from './BottomBar';
 export * from './Divider';

@@ -1,24 +1,41 @@
-import React, { ReactNode } from 'react';
-import { Text, View, ViewStyle, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import React, { ReactNode, useContext, useEffect } from 'react';
+import { Text, View, ViewStyle, StyleSheet, Animated, Easing } from 'react-native';
+import { OrderContext } from '../context';
+import { useFade } from '../hooks';
 
 export type BottomBarProps = {
-  total?: number;
   children?: ReactNode;
   style?: ViewStyle;
 };
 
 export const BottomBar = (props: BottomBarProps) => {
-  const { total = 0 } = props;
+  const { total } = useContext(OrderContext);
+  const { opacity, onFade } = useFade(100);
+
+  // total变化时触发动画
+  useEffect(() => {
+    // opacity.setValue(0);
+    onFade();
+  }, [total]);
+
+  const animatedStyles = [
+    {
+      opacity: opacity,
+    },
+  ];
+
   return (
     <View style={styles.bottomBar}>
       <View style={styles.container}>
-        <Text style={styles.total}>{total}$</Text>
-        {/* <LinearGradient style={styles.button} colors={['#FD003C', '#FF5D79']} locations={[-0.11, 1.05]} start={[1, 0]} end={[-1, 0]}> */}
+        <Text>
+          <Animated.View style={animatedStyles}>
+            <Text style={styles.text}>{total}</Text>
+          </Animated.View>
+          <Text style={styles.currency}>$</Text>
+        </Text>
         <View style={styles.button}>
           <Text style={styles.buttonText}>Pay</Text>
         </View>
-        {/* </LinearGradient> */}
       </View>
     </View>
   );
@@ -33,16 +50,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   container: {
-    // flex: 1,
-    width: '100%',
+    // width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     fontWeight: 'bold',
   },
-  total: {
+  text: {
     fontSize: 43,
-    marginLeft: 20,
+    color: '#4f4f4f',
+    width: 70,
+    marginRight: 5,
+    textAlign: 'right',
+  },
+  currency: {
+    fontSize: 43,
     color: '#4f4f4f',
   },
   button: {
@@ -57,7 +79,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 32,
     fontWeight: '600',
-    // lineHeight: 16,
     textAlign: 'center',
     color: '#fff',
     backgroundColor: 'transparent',

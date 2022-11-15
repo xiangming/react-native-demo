@@ -1,72 +1,105 @@
-import React, { ReactNode } from 'react';
-import { Text, View, Image, ViewStyle, StyleSheet } from 'react-native';
-import { AddButton, Food, FoodInfo } from '../components';
-
-const data = [
-  {
-    name: 'FRIES',
-    price: 4,
-    image1: require('../assets/order/fries1.png'),
-    image2: require('../assets/order/fries2.png'),
-  },
-  {
-    name: 'LATTE',
-    price: 3,
-    image1: require('../assets/order/latte1.png'),
-    image2: require('../assets/order/latte1.png'),
-  },
-  {
-    name: 'BURGER',
-    price: 6,
-    image1: require('../assets/order/burger1.png'),
-    image2: require('../assets/order/burger2.png'),
-  },
-];
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { View, Image, StyleSheet, PanResponder, PanResponderGestureState, GestureResponderEvent } from 'react-native';
+import { Card, CardProps } from '../components';
+import { Direction } from '../constants';
+import { OrderContext } from '../context';
 
 import star1Image from '../assets/order/star1.png';
 import star2Image from '../assets/order/star2.png';
 import star3Image from '../assets/order/star3.png';
 
+// TODO: add velocityThreshold
+const offsetThreshold = 50;
+
 export type OrderProps = {
-  children?: ReactNode;
-  style?: ViewStyle;
+  data: Omit<CardProps, 'direction'>[];
 };
 
-export const Order = (props: OrderProps) => {
+export const Order = ({ data }: OrderProps) => {
+  const [visible, setVisible] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState<Direction>('SWIPE_LEFT');
+
+  const { onSwipe } = useContext(OrderContext);
+
+  const getNextIndex = (index: number) => {
+    return index < 0 ? data.length + index : index % data.length;
+  };
+
+  const handleSwipeLeft = useCallback(() => {
+    setCurrentIndex((currentIndex) => getNextIndex(currentIndex + 1));
+    setDirection('SWIPE_LEFT');
+  }, []);
+
+  const handleSwipeRight = useCallback(() => {
+    setCurrentIndex((currentIndex) => getNextIndex(currentIndex - 1));
+    setDirection('SWIPE_RIGHT');
+  }, []);
+
+  useEffect(() => {
+    setVisible(!visible);
+    onSwipe?.(currentIndex);
+  }, [currentIndex]);
+
+  const responderEnd = (evt: GestureResponderEvent, gestureState: PanResponderGestureState) => {
+    const { dx } = gestureState;
+
+    if (Math.abs(dx) > offsetThreshold) {
+      dx > 0 ? handleSwipeRight() : handleSwipeLeft();
+    }
+  };
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderRelease: responderEnd,
+    }),
+  ).current;
+
   return (
-    <View style={styles.container}>
-      <Food />
-      <FoodInfo name='LATTE' price={3} />
-      <AddButton />
-      <Image source={star1Image} style={styles.star1Image} />
-      <Image source={star2Image} style={styles.star2Image} />
-      <Image source={star3Image} style={styles.star3Image} />
+    <View>
+      <View style={styles.container} {...panResponder.panHandlers}>
+        <View style={styles.carousel}>
+          {data.map((item, index) => {
+            return <Card {...item} visible={currentIndex === index} direction={direction} key={`${item.name}${index}`} />;
+          })}
+        </View>
+        {/* TODO: animate the stars */}
+        <Image source={star1Image} style={styles.star1Image} />
+        <Image source={star2Image} style={styles.star2Image} />
+        <Image source={star3Image} style={styles.star3Image} />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: 280,
+    height: 290,
+  },
+  carousel: {
+    height: 290,
+    flexDirection: 'row',
+    overflow: 'hidden',
   },
   star1Image: {
     position: 'absolute',
-    left: '44.53%',
-    top: '25.62%',
+    top: 114,
+    left: 209,
     width: 11,
     height: 13,
   },
   star2Image: {
     position: 'absolute',
-    left: '8.53%',
-    top: '40.27%',
+    top: 141,
+    left: 25,
     width: 15,
     height: 17,
   },
   star3Image: {
     position: 'absolute',
-    left: '40.53%',
-    top: '38.67%',
+    top: 40,
+    left: 172,
     width: 25,
     height: 27,
   },

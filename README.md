@@ -41,7 +41,7 @@ transform: translateX(100) 和 absolute 定位改变 left 值。
 
 #### 一段：放大、往目标点移动
 
-transform: scaleX, scaleY, translateX、translateY
+transform: scale, left, top
 
 #### 二段：左右水平移动
 

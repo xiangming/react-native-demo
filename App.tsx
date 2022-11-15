@@ -1,42 +1,58 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View, StatusBar, ScrollView } from 'react-native';
-// import { StatusBar } from 'expo-status-bar';
-import { LinearGradient } from 'expo-linear-gradient';
-import Hello from './Hello';
-import Drag from './Drag';
-import Fade from './Fade';
-import FadeInOut from './FadeInOut';
-import Translate from './Translate';
-import { Order, Plate, BottomBar, TopBar, Address, Divider } from './containers';
+import React, { useState } from 'react';
+import { SafeAreaView, StyleSheet, Text, View, StatusBar, Button } from 'react-native';
+import { Order, Plate, BottomBar, TopBar, Address, Divider, AddButton } from './containers';
+import { OrderProvider } from './provider';
+
+const data = [
+  {
+    name: 'FRIES',
+    price: 4,
+    image1: require('./assets/order/fries1.png'),
+    image2: require('./assets/order/fries2.png'),
+    starPositions: [
+      {
+        top: 114,
+        left: 209,
+      },
+      {
+        top: 141,
+        left: 25,
+      },
+      {
+        top: 40,
+        left: 172,
+      },
+    ],
+  },
+  {
+    name: 'LATTE',
+    price: 3,
+    image1: require('./assets/order/latte1.png'),
+    image2: require('./assets/order/latte2.png'),
+  },
+  {
+    name: 'BURGER',
+    price: 6,
+    image1: require('./assets/order/burger1.png'),
+    image2: require('./assets/order/burger2.png'),
+  },
+];
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.page}>
-      <View style={styles.container}>
-        {/* <LinearGradient style={styles.container} colors={['#F5F5F5', '#FFEDED']} locations={[0, 1.78]} start={[1, 0]} end={[0, 20]}> */}
-        <TopBar />
-        {/* <ScrollView style={styles.scrollView}>
-          <Text style={styles.text}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          </Text>
-        </ScrollView> */}
-        <Translate />
-        {/* <FadeInOut /> */}
-        {/* <Fade /> */}
-        {/* <Drag /> */}
-        {/* <Text>Open up App.tsx to start working on your app!</Text> */}
-        {/* <Hello name='Arvin' /> */}
-        <Order />
-        <Divider />
-        <Plate />
-        <Address />
-        {/* <StatusBar style='auto' /> */}
-        <BottomBar />
-        {/* </LinearGradient> */}
-      </View>
-    </SafeAreaView>
+    <OrderProvider>
+      <SafeAreaView style={styles.page}>
+        <View style={styles.container}>
+          <TopBar />
+          <Order data={data} />
+          <Divider />
+          <AddButton data={data} />
+          {/* <Plate /> */}
+          <Address />
+          <BottomBar />
+        </View>
+      </SafeAreaView>
+    </OrderProvider>
   );
 }
 
@@ -47,18 +63,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    // display: 'flex',
-    // width: '100%',
-    // height: '100%',
-    backgroundColor: '#f5f5f5',
-    // backgroundColor: '#FFEDED',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    // backgroundColor: '#f5f5f5',
+    backgroundColor: '#FFEDED',
+    // TODO: gradient backgroundColor
   },
-  // scrollView: {
-  //   backgroundColor: 'pink',
-  // },
-  // text: {
-  //   fontSize: 42,
-  // },
 });

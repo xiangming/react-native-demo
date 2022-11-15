@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { View, Image, ViewStyle, StyleSheet } from 'react-native';
+
 import plateImage from '../assets/plate/plate.png';
 import friesImage from '../assets/plate/fries.png';
 import latteImage from '../assets/plate/latte.png';
