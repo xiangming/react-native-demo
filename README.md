@@ -1,13 +1,26 @@
-# README
+# APP
 
-## 如何运行？
+Built with React Native.
 
-1. install Expo Go App on your phone(Android or iOS).
-2. Scan the QR code with Expo Go (Android) or the Camera app (iOS)
-3. The project will run in Expo Go App on your phone.
-4. Shake your phone to use the reload menu.
+## Technologies used
 
-## 动画 1：选餐
+This project was created using the following technologies.
+
+- react-native (The better one with the react stack)
+- react-native-web (Develop faster on your PC web)
+- typescript (For better develop experience)
+- expo (Quickstart for the demo purposes)
+
+## How to run ?
+
+(Contact me if you need to run it on your device, I'll assist you.)
+
+1. install **Expo Go** App on your phone(Android or iOS both should be OK).
+2. Scan the QR code with **Expo Go** (Android) or the Camera app (iOS)
+3. The project will run in **Expo Go** App on your phone.
+4. Shake your phone to use the reload menu, if you need it.
+
+## 选餐动画
 
 Swipe 手势左右切换。
 
@@ -34,21 +47,21 @@ absolute 定位改变 left 和 top 值。
 
 opacity: 1 => 0 => 1
 
-## 动画 2：点餐
+## 点餐动画
 
 点击加号进入托盘区域。
 
 ```jsx
 <TouchableWithoutFeedback
   onPress={() => {
-    addToPlate(i);
+    addToPlate();
   }}
 >
   <View>Add Button</View>
 </TouchableWithoutFeedback>
 ```
 
-### 一段：放大、往目标点移动
+### 一段：放大并往目标点移动
 
 transform: scale, left, top
 
@@ -58,15 +71,15 @@ transform: translateX
 
 - 第一个进入时，无动画
 - 第二个进入的同时，将第一个右移 offset
-- 第三个进入的同时，将第一个和第二个一起左移 offset
+- 第三个进入的同时，整体左移 offset
 
-## 动画 3：结账
+## 结账动画
 
 总金额先消失再显示。
 
 opacity: 1 => 0 ==> 1
 
-## 动画调度函数
+## 动画调度
 
 动画也可以使用合成函数以复杂的方式组合：
 
@@ -78,3 +91,5 @@ opacity: 1 => 0 ==> 1
 ## 状态共享
 
 当前场景使用 context 够用。
+
+> 演示使用了 `currentIndex` 和静态 data，真实业务场景应当fetch data，并使用 `id` 而不是 `currentIndex`。
