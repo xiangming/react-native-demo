@@ -1,19 +1,12 @@
-import React, { ReactNode } from 'react';
-import { Text, View, Image, ViewStyle, StyleSheet } from 'react-native';
-import mapImage from '../assets/address/map.png';
-import callImage from '../assets/address/call.png';
+import React from 'react';
+import { Text, View, Image, StyleSheet } from 'react-native';
 
-export type AddressProps = {
-  children?: ReactNode;
-  style?: ViewStyle;
-};
-
-export const Address = (props: AddressProps) => {
+export const Address = () => {
   return (
     <View style={styles.container}>
-      <Image source={mapImage} style={{ width: 25, height: 34 }} />
+      <Image source={require('../assets/address/map.png')} style={{ width: 25, height: 34 }} />
       <Text>Dongcheng District Metro Cultural Building</Text>
-      <Image source={callImage} style={{ width: 33, height: 33 }} />
+      <Image source={require('../assets/address/call.png')} style={{ width: 33, height: 33 }} />
     </View>
   );
 };

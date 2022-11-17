@@ -1,10 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { Text, StyleSheet, Animated, Easing } from 'react-native';
 
-const duration = 500;
+const timingConfig = () => ({
+  easing: Easing.quad,
+  duration: 500,
+  useNativeDriver: false,
+});
 
 export type FoodInfoProps = {
-  visible?: boolean; // 用来控制动画
+  visible?: boolean;
   name?: string;
   price?: number;
 };
@@ -18,18 +22,13 @@ export const FoodInfo = (props: FoodInfoProps) => {
   // 向下进入
   const enterAnimation = () => {
     Animated.parallel([
-      // Animated.delay(duration),
       Animated.timing(translateY, {
         toValue: 0,
-        easing: Easing.quad,
-        duration,
-        useNativeDriver: true,
+        ...timingConfig(),
       }),
       Animated.timing(opacity, {
         toValue: 1,
-        easing: Easing.quad,
-        duration,
-        useNativeDriver: true,
+        ...timingConfig(),
       }),
     ]).start();
   };
@@ -37,18 +36,13 @@ export const FoodInfo = (props: FoodInfoProps) => {
   // 向下退出
   const leaveAnimation = () => {
     Animated.parallel([
-      // Animated.delay(250),
       Animated.timing(translateY, {
         toValue: 50,
-        easing: Easing.quad,
-        duration,
-        useNativeDriver: true,
+        ...timingConfig(),
       }),
       Animated.timing(opacity, {
         toValue: 0,
-        easing: Easing.quad,
-        duration,
-        useNativeDriver: true,
+        ...timingConfig(),
       }),
     ]).start();
   };

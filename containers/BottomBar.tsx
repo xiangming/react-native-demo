@@ -1,26 +1,19 @@
-import React, { ReactNode, useContext, useEffect } from 'react';
-import { Text, View, ViewStyle, StyleSheet, Animated, Easing } from 'react-native';
-import { OrderContext } from '../context';
+import React, { useContext, useEffect } from 'react';
+import { Text, View, StyleSheet, Animated } from 'react-native';
+import { FoodsContext } from '../context';
 import { useFade } from '../hooks';
 
-export type BottomBarProps = {
-  children?: ReactNode;
-  style?: ViewStyle;
-};
-
-export const BottomBar = (props: BottomBarProps) => {
-  const { total } = useContext(OrderContext);
+export const BottomBar = () => {
+  const { total } = useContext(FoodsContext);
   const { opacity, onFade } = useFade(100);
 
-  // total变化时触发动画
   useEffect(() => {
-    // opacity.setValue(0);
     onFade();
   }, [total]);
 
   const animatedStyles = [
     {
-      opacity: opacity,
+      opacity,
     },
   ];
 
@@ -50,7 +43,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   container: {
-    // width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

@@ -1,15 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { OrderContext, OrderContextProps } from './context';
+import { FoodsContext, FoodsContextProps } from './context';
 
-export type OrderProviderProps = OrderContextProps;
+export type FoodsProviderProps = Partial<FoodsContextProps>;
 
-export const OrderProvider = (props: OrderProviderProps) => {
+export const FoodsProvider = (props: FoodsProviderProps) => {
   const { children } = props;
 
-  const context = useContext(OrderContext);
+  const context = useContext(FoodsContext);
 
-  const [total, setTotal] = useState(context.total || 0);
-  const [currentIndex, setCurrentIndex] = useState(context.currentIndex || 0);
+  const [total, setTotal] = useState(context.total);
+  const [currentIndex, setCurrentIndex] = useState(context.currentIndex);
 
   const onAdd = (num: number) => {
     setTotal(total + num);
@@ -20,7 +20,7 @@ export const OrderProvider = (props: OrderProviderProps) => {
   };
 
   return (
-    <OrderContext.Provider
+    <FoodsContext.Provider
       value={{
         total,
         onAdd,
@@ -29,6 +29,6 @@ export const OrderProvider = (props: OrderProviderProps) => {
       }}
     >
       {children}
-    </OrderContext.Provider>
+    </FoodsContext.Provider>
   );
 };

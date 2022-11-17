@@ -1,11 +1,11 @@
 import React from 'react';
 
-export interface OrderContextProps {
-  total?: number; // 总金额
+export interface FoodsContextProps {
+  total: number; // total
+  onAdd?: (num: number) => void; // total change callback
+  currentIndex: number; // demo only, use an [id] for real scenario
+  onSwipe?: (currentIndex: number) => void; // swipe callback
   children?: React.ReactNode;
-  onAdd?: (num: number) => void; // 总金额变更回调
-  currentIndex?: number; // 当前food索引
-  onSwipe?: (currentIndex: number) => void; // swipe回调
 }
 
-export const OrderContext = React.createContext<OrderContextProps>({});
+export const FoodsContext = React.createContext<FoodsContextProps>({ total: 0, currentIndex: 0 });

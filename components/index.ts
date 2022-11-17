@@ -1,4 +1,3 @@
-export * from './Card';
 export * from './Food';
+export * from './FoodImage';
 export * from './FoodInfo';
-export * from './ShoppingCart';

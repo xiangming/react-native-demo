@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const useDidMountEffect = (func: () => void, deps: React.DependencyList | undefined) => {
   const didMount = React.useRef(false);

@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-export type DividerProps = {};
-
 export const Divider = () => {
   return <View style={styles.divider}></View>;
 };
